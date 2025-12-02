@@ -3,4 +3,5 @@ project(ListasEnlazadasGrupal)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(ListasEnlazadasGrupal main.cpp)
+add_executable(ListasEnlazadasGrupal main.cpp
+        Contacto.h)
