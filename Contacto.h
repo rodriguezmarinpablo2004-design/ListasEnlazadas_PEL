@@ -22,7 +22,15 @@ public:
     Contacto() : nombre(""), telefono(""), edad(0), descripcion("") {}
 
     // Constructor Parametrizado
-    Contacto(string n, string t, int e, string d) : nombre(n), telefono(t), edad(e), descripcion(d) {}
+    // Modificado esto para incluir validación de edad desde el inicio
+    Contacto(string n, string t, int e, string d) : nombre(n), telefono(t), descripcion(d) {
+        if (e < 0) {
+            cout << "Advertencia: Se intento crear un contacto con edad negativa (" << e << "). Se ajusta a 0." << endl;
+            edad = 0;
+        } else {
+            edad = e;
+        }
+    }
 
     // --- GETTERS ---
     std::string getNombre() const
@@ -60,6 +68,8 @@ public:
     {
         if (e >= 0) {
             edad = e; // Validación básica: no permitir edades negativas
+        } else {
+            cout << "Error: No se puede asignar una edad negativa." << endl;
         }
     }
 
@@ -75,6 +85,7 @@ public:
         return this->telefono == otro.telefono;
     }
 
+    // Metodo original para mostrar datos
     void mostrar() const {
         cout << "[" << nombre
              << " | Telefono: " << telefono
@@ -82,6 +93,12 @@ public:
              << " | Descripcion: " << descripcion << "]";
     }
 
+    // Sobrecarga del operador << para que la ListaEnlazada pueda imprimir directamente
+    // sin tener que llamar a .mostrar() dentro de la plantilla.
+    friend ostream& operator<<(ostream& os, const Contacto& c) {
+        os << "[" << c.nombre << " | Tel: " << c.telefono << "]";
+        return os;
+    }
 };
 
 #endif //CONTACTO_H

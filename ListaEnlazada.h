@@ -51,45 +51,56 @@ public:
     }
 
     // Eliminar (la primera ocurrencia del valor)
-    void eliminar(T valor) {
-        if (estaVacia()) return;
+    // Modificado para devolver bool (lógica de validación)
+    bool eliminar(T valor) {
+        if (estaVacia()) return false;
 
-        // el valor está en la cabeza
         if (cabeza->dato == valor) {
             Nodo<T>* temp = cabeza;
             cabeza = cabeza->siguiente;
             delete temp;
             tamano--;
-            return;
+            return true;
         }
 
-        // Buscamos el nodo previo al que queremos eliminar
         Nodo<T>* actual = cabeza;
-        while (actual->siguiente != nullptr && actual->siguiente->dato != valor) {
+        while (actual->siguiente != nullptr && !(actual->siguiente->dato == valor)) {
             actual = actual->siguiente;
         }
 
-        // Si encontramos el nodo
         if (actual->siguiente != nullptr) {
             Nodo<T>* aEliminar = actual->siguiente;
-            actual->siguiente = aEliminar->siguiente; // Saltamos el nodo
-            delete aEliminar; // Liberamos memoria
+            actual->siguiente = aEliminar->siguiente;
+            delete aEliminar;
             tamano--;
+            return true;
         }
+        return false;
     }
 
-    // Buscar
-    T buscar(T valor) const {
+    // --- FUNDAMENTAL PARA DUPLICADOS ---
+    // Metodo para comprobar existencia sin lanzar excepciones
+    bool existe(T valor) const {
         Nodo<T>* actual = cabeza;
         while (actual != nullptr) {
             if (actual->dato == valor) {
-                return actual->dato;
+                return true;
             }
             actual = actual->siguiente;
         }
+        return false;
+    }
 
-        // En lugar de devolver un dato falso, lanzamos una excepción con el mensaje
-        throw std::runtime_error("Error: El elemento no existe en la lista.");
+    // Modificado: Devuelve puntero para poder MODIFICAR el objeto real
+    T* buscarPuntero(T valor) const {
+        Nodo<T>* actual = cabeza;
+        while (actual != nullptr) {
+            if (actual->dato == valor) {
+                return &(actual->dato); // Devuelve la dirección de memoria del dato
+            }
+            actual = actual->siguiente;
+        }
+        return nullptr;
     }
 
     // Obtener Tamaño
@@ -119,7 +130,7 @@ public:
     void imprimir() const {
         Nodo<T>* actual = cabeza;
         while (actual != nullptr) {
-            std::cout << actual->dato << " -> ";
+            std::cout << actual->dato << " -> "; // Requiere sobrecarga de operator<< en T
             actual = actual->siguiente;
         }
         std::cout << "nullptr" << std::endl;
