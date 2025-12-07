@@ -33,6 +33,14 @@ public:
         return password;
     }
 
+    void changeUsername (string nuevoUsername) {
+        username = nuevoUsername;
+    }
+
+    void changePassword (string nuevaPassword) {
+        password = nuevaPassword;
+    }
+
     // --- FUNCIONES AUXILIARES ---
     // Verifica si un teléfono ya existe en la lista para mantener la integridad
     bool esDuplicado(string telefono) {

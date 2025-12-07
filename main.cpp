@@ -141,10 +141,28 @@ void mostrarMenuContacto(Usuario& usuarioActual) {
                 }
                 break;
 
-            case 7:
+            case 7: {
+                int opcionSel;
+                string datoCambio;
                 cout << "--- Datos de Usuario ---" << endl;
                 cout << "Usuario: " << usuarioActual.getUsername() << "\nContrasena: " << usuarioActual.getPassword() << endl;
-                break;
+                cout << "1. Cambiar nombre de usuario" << endl;
+                cout << "2. Cambiar contrasena" << endl;
+                cin >> opcionSel;
+                switch (opcionSel) {
+                    case 1:
+                        cout << "Nuevo nombre de usuario: "; cin.ignore(); getline(cin, datoCambio);
+                        usuarioActual.changeUsername(datoCambio);
+                        break;
+                    case 2:
+                        cout << "Nueva contrasena: "; cin.ignore(); getline(cin, datoCambio);
+                        usuarioActual.changePassword(datoCambio);
+                        break;
+                    case -1:
+                        break;
+                }
+            }
+            break;
 
             case -1:
                 cout << "Cerrando sesion." << endl;
