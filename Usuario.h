@@ -19,6 +19,7 @@ private:
     ListaEnlazada<Contacto> misContactos; // Lista enlazada de contactos
 
 public:
+    Usuario(): username(""), password("") {}
     Usuario(string user, string pass) : username(user), password(pass) {}
 
     // --- GETTERS ---
