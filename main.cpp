@@ -25,6 +25,7 @@ void mostrarMenuContacto(Usuario& usuarioActual) {
         cout << "4. Modificar contacto" << endl;
         cout << "5. Eliminar contacto" << endl;
         cout << "6. Importar contactos de otro usuario" << endl;
+        cout << "7. Mostrar datos de usuario" << endl;
         cout << "-1. Cerrar Sesion" << endl;
         cout << "Seleccione una opcion: ";
 
@@ -138,6 +139,11 @@ void mostrarMenuContacto(Usuario& usuarioActual) {
                         cout << "Error: El usuario " << usernameBusqueda << " no existe." << endl;
                     }
                 }
+                break;
+
+            case 7:
+                cout << "--- Datos de Usuario ---" << endl;
+                cout << "Usuario: " << usuarioActual.getUsername() << "\nContrasena: " << usuarioActual.getPassword() << endl;
                 break;
 
             case -1:
